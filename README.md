@@ -172,7 +172,6 @@ pip install -U aeon[all_extras]
 pip install gdown
 ```
 ---
-Access to trajectory data can be given on request.
 
 ## 🚀 Usage
 
@@ -182,9 +181,17 @@ Launch the Jupyter notebook environment:
 conda activate tf_gpu
 jupyter notebook
 ```
+Run the notebook in following sequence :
 
-Open the relevant notebook and follow the inline instructions to run classification and intent prediction on the provided dataset.
-
+```bash
+data_download
+main_type
+training_belief_distribution
+main_intent
+evaluate
+demo
+```
+**Note:** Access to trajectory data can be given on request.
 ---
 
 ## 📁 Repository Structure
