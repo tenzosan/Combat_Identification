@@ -203,13 +203,13 @@ Open the relevant notebook and follow the inline instructions to run classificat
 
 ## 📄 Citation
 
-If you use this work, please cite:
+If you use this work, please cite - In-Progress
 
 ```bibtex
-@article{aerial_evidential_2024,
+@article{,
   title   = {An Evidential Reasoning Approach for Aerial Target Classification and Intent Prediction},
-  journal = {[Journal Name]},
-  year    = {2024}
+  journal = {[]},
+  year    = {}
 }
 ```
 
