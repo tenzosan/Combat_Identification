@@ -1,0 +1,12 @@
+# Aircraft name to index mapping
+#'Multirole Fighter': 2690,
+#'Air-to-air Missile': 1687,
+#'Bomber': 322,
+#'Civilian Helicopter': 1263,
+#'Civilian Commercial Airliner': 650,
+#'Military Helicopter': 2001,
+#'Small Civilian': 3105,
+#'Small Unmanned': 3604
+
+The plot and generated GIF look compressed along the axes, making the trajectory visually unclear. The scaling of the axes needs to be adjusted to preserve proper aspect ratio and improve readability.
+Additionally, the grid is not visible in both the static plot and the GIF frames, which reduces interpretability. Please ensure the grid is enabled and clearly rendered throughout the animation as well as in the final plot.
