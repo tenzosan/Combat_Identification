@@ -1,81 +1,247 @@
-<<<<<<< HEAD
-## An Evidential Reasoning Approach for Aerial Target Classification and Intent Prediction
-Timely classification and intent prediction of aerial targets is crucial for a combat aircraft to
-make informed tactical decisions. The prevailing approach for aerial target classification relies
-on data-driven models using time-series data. These models perform well with long-duration
-data; however, this is impractical in combat situations involving rapidly evolving threats that
-demand quick decisions. Minimizing false predictions is essential, as uncertainty is preferable
-to incorrect assessments in high-risk environments. Here, we propose an integrated approach
-to target classification and intent prediction that enables decisions from partial data in settings
-where threats require rapid response. In the proposed method, predictions are generated
-from short sequential sub-samples instead of the entire time series, and the results are refined
-by propagating beliefs across sub-samples. Outputs from classifiers are combined through
-an evidential reasoning framework to manage uncertainty. Target intent is inferred using
-rule-based techniques and a distance-based combination method to fuse information over time.
-Due to lack of publicly available datasets, a dataset for aerial target classification was generated
-for evaluation. A case study involving eight targets is used to demonstrate the effectiveness of
-the approach, whereby accuracies of 88% and 93% are achieved for target type classification
-and intent prediction, respectively.
+# 🎯 Evidential Reasoning for Aerial Target Classification & Intent Prediction
 
-## 🚀 Installation Guide For Windows
+> **Rapid, uncertainty-aware classification of aerial threats from partial time-series data using Dempster-Shafer evidential reasoning.**
 
-### **1️ Install Anaconda Navigator**
-Download and install Anaconda from the official website:  
-🔗 [Anaconda Download](https://www.anaconda.com/download)
+[![Python](https://img.shields.io/badge/Python-3.8-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-%3C2.11-FF6F00?style=flat-square&logo=tensorflow&logoColor=white)](https://tensorflow.org)
+[![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
+[![Accuracy](https://img.shields.io/badge/Classification_Accuracy-88%25-6366F1?style=flat-square)]()
+[![Intent](https://img.shields.io/badge/Intent_Prediction-93%25-EC4899?style=flat-square)]()
 
+---
 
-### **2 Create and Activate Virtual Environment**
-Run the following commands in the **Anaconda Prompt** or **Terminal**:
+## 📖 Abstract
+
+Timely classification and intent prediction of aerial targets is crucial for a combat aircraft to make informed tactical decisions. The prevailing approach relies on data-driven models using time-series data — performing well with long-duration inputs, but this is impractical in rapidly evolving combat situations that demand quick decisions.
+
+**Minimizing false predictions is essential**: uncertainty is preferable to incorrect assessments in high-risk environments.
+
+We propose an **integrated approach** that enables decisions from partial data:
+
+- Predictions are generated from **short sequential sub-samples** instead of the entire time series
+- Results are refined by **propagating beliefs across sub-samples**
+- Classifier outputs are combined through an **evidential reasoning framework** to manage uncertainty
+- Target intent is inferred using **rule-based techniques** and a **distance-based fusion method**
+
+A case study involving **8 aerial targets** achieves:
+
+| Task | Accuracy |
+|------|----------|
+| Target Type Classification | **88%** |
+| Intent Prediction | **93%** |
+
+---
+
+## 🗂️ Table of Contents
+
+- [Combat Geometry](#-combat-geometry)
+- [System Overview](#-system-overview)
+- [Results](#-results)
+- [Demo](#-demo)
+- [Installation](#-installation)
+- [Usage](#-usage)
+
+---
+
+## ⚔️ Combat Geometry
+
+The approach models the 3D geometry of aerial engagements. Four key conditions define the tactical state between an ownship and a target.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="./images/combatGeometry.png" width="100%">
+      <br><sub><b>(a) Combat Geometry</b> — Spatial relationship between ownship and aerial target</sub>
+    </td>
+    <td align="center">
+      <img src="./images/angleOffCondn.png" width="100%">
+      <br><sub><b>(b) Angle-Off Condition</b> — Angular offset used for intent inference</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./images/lambdaCondn-1.png" width="100%">
+      <br><sub><b>(c) Lambda Condition 1</b> — Line-of-sight rate threshold for threat assessment</sub>
+    </td>
+    <td align="center">
+      <img src="./images/lambdaCondn-2.png" width="100%">
+      <br><sub><b>(d) Lambda Condition 2</b> — Secondary lambda condition for refined classification</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🧠 System Overview
+
+```
+Time-Series Data (partial)
+        │
+        ▼
+┌───────────────────┐
+│  Sequential       │  Short sub-samples instead of full series
+│  Sub-sampling     │
+└────────┬──────────┘
+         │
+         ▼
+┌───────────────────┐
+│  Classifiers      │  Multiple models per sub-sample
+│  (per sub-sample) │
+└────────┬──────────┘
+         │
+         ▼
+┌───────────────────┐
+│  Dempster-Shafer  │  Evidential combination across sub-samples
+│  Fusion           │  (Dempster / Yager rules)
+└────────┬──────────┘
+         │
+         ▼
+┌───────────────────┐
+│  Intent Engine    │  Rule-based + distance-based temporal fusion
+│                   │
+└────────┬──────────┘
+         │
+         ▼
+  Classification + Intent Prediction
+```
+
+---
+
+## 📊 Results
+
+Confusion matrices for the two evidential combination rules evaluated:
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="./images/Dempster_Base.png" width="100%">
+      <br><sub><b>(a) Dempster Rule of Combination</b></sub>
+    </td>
+    <td align="center">
+      <img src="./images/Yager_Confusion_Matrix.png" width="100%">
+      <br><sub><b>(b) Yager Modified Dempster Combination</b></sub>
+    </td>
+  </tr>
+</table>
+
+The Yager modification handles conflicting evidence more gracefully, redistributing conflict mass to the ignorance set rather than causing counter-intuitive normalizations.
+
+---
+
+## 🎬 Demo
+
+Online classification and intent prediction for a **Cruise Missile vs. Ownship** engagement:
+
+<table>
+  <tr>
+    <td rowspan="2" width="55%" align="center">
+      <img src="./images/Cruise_Missile_traj.gif" width="100%" />
+      <br><sub><b>(a) Cruise Missile vs Ownship</b> — 3D trajectory simulation</sub>
+    </td>
+    <td width="45%" align="center">
+      <img src="./images/Cruise_Missile_Type.gif" width="100%" />
+      <br><sub><b>(b) Online target type classification</b> — belief updates per sub-sample</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./images/Cruise_Missile_Intent.gif" width="100%" />
+      <br><sub><b>(c) Online target intent prediction</b> — fused intent estimate over time</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🛠️ Installation
+
+### Prerequisites
+
+- Windows 10/11 (64-bit)
+- NVIDIA GPU with CUDA support (optional but recommended)
+- [Anaconda Navigator](https://www.anaconda.com/download)
+
+### Step-by-Step Setup
+
+**1. Create and activate a virtual environment**
 
 ```bash
 conda create --name tf_gpu python=3.8
 conda activate tf_gpu
 ```
 
-### **3️ Install GPU Support (CUDA & cuDNN)**
-For GPU acceleration, install **CUDA Toolkit 11.2** and **cuDNN 8.1.0**:
+**2. Install GPU support (CUDA & cuDNN)**
+
 ```bash
 conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
 ```
-### **4️ Install GPU Support (CUDA & cuDNN)**
+
+**3. Install TensorFlow**
 
 ```bash
 python -m pip install "tensorflow<2.11"
 ```
 
-## **5️ Verify GPU Installation Check if TensorFlow detects your GPU:**
+**4. Verify GPU detection**
+
 ```bash
 python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 ```
-## **6️ Install Required Packages Run the following to install additional dependencies:**
+
+A non-empty list confirms GPU support is active.
+
+**5. Install remaining dependencies**
+
 ```bash
 pip install notebook joblib scikit-learn pandas matplotlib seaborn
 pip install -U aeon[all_extras]
 ```
 
+---
 
-## Combat Geometry
-<p align="center">
-  <img src="./images/combatGeometry.png" width="45%" style="margin-right: 10px;" />
-  <img src="./images/angleOffCondn.png" width="45%" />
-</p>
+## 🚀 Usage
 
-<p align="center">
-  <img src="./images/lambdaCondn-1.png" width="45%" style="margin-right: 10px;" />
-  <img src="./images/lambdaCondn-2.png" width="45%" />
-</p>
+Launch the Jupyter notebook environment:
 
-## Demo Cruise Missile Vs Own-shp
-<table>
-  <tr>
-    <td rowspan="2" width="55%"><img src="./images/Cruise_Missile_traj.gif" width="100%" /></td>
-    <td width="45%"><img src="./images/Cruise_Missile_Type.gif" width="100%" /></td>
-  </tr>
-  <tr>
-    <td><img src="./images/Cruise_Missile_Intent.gif" width="100%" /></td>
-  </tr>
-</table>
+```bash
+conda activate tf_gpu
+jupyter notebook
+```
 
-=======
-# Combat-identification-CID-
->>>>>>> bdbe6fced514556107b54b307a6cd690f4f46b8c
+Open the relevant notebook and follow the inline instructions to run classification and intent prediction on the provided dataset.
+
+---
+
+## 📁 Repository Structure
+
+```
+├── images/                  # Figures, GIFs, and diagrams used in README
+├── notebooks/               # Jupyter notebooks for experiments
+├── data/                    # Generated aerial target dataset
+├── models/                  # Saved classifier models
+├── src/                     # Core source code
+│   ├── classification/      # Sub-sample classifiers
+│   ├── fusion/              # Dempster-Shafer combination rules
+│   └── intent/              # Rule-based intent engine
+└── README.md
+```
+
+---
+
+## 📄 Citation
+
+If you use this work, please cite:
+
+```bibtex
+@article{aerial_evidential_2024,
+  title   = {An Evidential Reasoning Approach for Aerial Target Classification and Intent Prediction},
+  journal = {[Journal Name]},
+  year    = {2024}
+}
+```
+
+---
+
+## 📬 Contact
+
+For questions or collaborations, please open an issue or reach out via the repository discussions tab.
