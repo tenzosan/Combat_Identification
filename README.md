@@ -181,7 +181,7 @@ Launch the Jupyter notebook environment:
 conda activate tf_gpu
 jupyter notebook
 ```
-Run the notebook in following sequence :
+Run the notebook in following sequence (Access to trajectory data can be given on request.) :
 
 ```bash
 data_download
@@ -191,7 +191,6 @@ main_intent
 evaluate
 demo
 ```
-**Note:** Access to trajectory data can be given on request.
 ---
 
 ## 📁 Repository Structure
