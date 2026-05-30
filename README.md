@@ -172,7 +172,7 @@ pip install -U aeon[all_extras]
 pip install gdown
 ```
 ---
-Access to ttrajectory data can be given on request.
+Access to trajectory data can be given on request.
 
 ## 🚀 Usage
 
