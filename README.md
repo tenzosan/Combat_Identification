@@ -191,9 +191,11 @@ Open the relevant notebook and follow the inline instructions to run classificat
 ├── data/                    # Generated aerial target dataset
 ├── models/                  # Saved classifier models
 ├── src/                     # Core source code
-│   ├── classification/      # Sub-sample classifiers
-│   ├── fusion/              # Dempster-Shafer combination rules
-│   └── intent/              # Rule-based intent engine
+│   ├── preprocess/          # Preprocss the input data
+│   ├── model_training/      # Train all model 
+│   └── postprocess/         # Data fusion 
+    └── optimize/            # Optimization
+├── output/                  # store all generated output
 └── README.md
 ```
 
