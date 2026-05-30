@@ -167,7 +167,11 @@ A non-empty list confirms GPU support is active.
 pip install notebook joblib scikit-learn pandas matplotlib seaborn
 pip install -U aeon[all_extras]
 ```
+**6. Data downloader libraries**
 
+```bash
+pip install gdown
+```
 ---
 
 ## 🚀 Usage
