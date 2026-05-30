@@ -51,21 +51,21 @@ The approach models the 3D geometry of aerial engagements. Four key conditions d
   <tr>
     <td align="center">
       <img src="./images/combatGeometry.png" width="100%">
-      <br><sub><b>(a) Combat Geometry</b> — Spatial relationship between ownship and aerial target</sub>
+      <br><sub><b>(a) Combat Geometry</b></sub>
     </td>
     <td align="center">
       <img src="./images/angleOffCondn.png" width="100%">
-      <br><sub><b>(b) Angle-Off Condition</b> — Angular offset used for intent inference</sub>
+      <br><sub><b>(b) Angle-Off Condition</b></sub>
     </td>
   </tr>
   <tr>
     <td align="center">
       <img src="./images/lambdaCondn-1.png" width="100%">
-      <br><sub><b>(c) Lambda Condition 1</b> — Line-of-sight rate threshold for threat assessment</sub>
+      <br><sub><b>(c) Lambda Condition 1</b></sub>
     </td>
     <td align="center">
       <img src="./images/lambdaCondn-2.png" width="100%">
-      <br><sub><b>(d) Lambda Condition 2</b> — Secondary lambda condition for refined classification</sub>
+      <br><sub><b>(d) Lambda Condition 2</b></sub>
     </td>
   </tr>
 </table>
@@ -74,38 +74,9 @@ The approach models the 3D geometry of aerial engagements. Four key conditions d
 
 ## 🧠 System Overview
 
-```
-Time-Series Data (partial)
-        │
-        ▼
-┌───────────────────┐
-│  Sequential       │  Short sub-samples instead of full series
-│  Sub-sampling     │
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│  Classifiers      │  Multiple models per sub-sample
-│  (per sub-sample) │
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│  Dempster-Shafer  │  Evidential combination across sub-samples
-│  Fusion           │  (Dempster / Yager rules)
-└────────┬──────────┘
-         │
-         ▼
-┌───────────────────┐
-│  Intent Engine    │  Rule-based + distance-based temporal fusion
-│                   │
-└────────┬──────────┘
-         │
-         ▼
-  Classification + Intent Prediction
-```
-
----
+<p align="center">
+  <img src="./images/Flow_Diagram.png" width="500" height="600" />
+</p>
 
 ## 📊 Results
 
