@@ -213,13 +213,14 @@ demo
 
 ## 📄 Citation
 
-If you use this work, please cite - In-Progress
+If you use this work, please cite -
 
 ```bibtex
-@article{,
+@article{bhutia2026evidential,
   title   = {An Evidential Reasoning Approach for Aerial Target Classification and Intent Prediction},
-  journal = {[]},
-  year    = {}
+  journal = {arXiv preprint arXiv:2607.14606},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2607.14606}
 }
 ```
 
